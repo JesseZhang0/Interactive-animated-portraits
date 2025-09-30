@@ -8,4 +8,4 @@ It works by randomly overlaying shapes onto a base image and keeping the one wit
 
 You can install dependencies with:
 ```bash
-pip install pillow numpy
+pip install -r requirements.txt
