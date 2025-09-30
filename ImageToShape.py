@@ -53,7 +53,7 @@ def calculate_difference(image1, image2, diff_type="ssim"):
     # Compute difference
     diff = 0.0
     if diff_type == "ssim":
-        score, _ = ssim(arr1, arr2, channel_axis=-1, full=True)
+        score, _ = ssim(arr1, arr2, channel_axis=-1, full=True, data_range=arr2.max() - arr2.min())
         diff = 1 - score  # Higher SSIM means more similar, so invert it
     elif diff_type == "mse":
         diff = np.mean((arr1 - arr2) ** 2)
@@ -65,7 +65,7 @@ def calculate_difference(image1, image2, diff_type="ssim"):
     return diff
 
 
-def iterate( target_img, base_img=None, n=1, m=100, shape_type="circle", diff_type="ssim"):
+def iterate(target_img, base_img=None, n=1, m=100, shape_type="circle", diff_type="mse"):
     """
     Iteratively improves base_img by adding shapes.
     
@@ -116,5 +116,5 @@ if __name__ == "__main__":
     # Example usage: replace target.png with your target image path
     target = Image.open("Tech-tower-wreck.jpg").convert("RGBA")
 
-    result = iterate(target, n=1000, m=1000)
+    result = iterate(target, n=100, m=100)
     result.show()
